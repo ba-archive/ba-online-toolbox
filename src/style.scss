@@ -1,0 +1,90 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  box-sizing: border-box;
+  font-family: 'Microsoft YaHei', 'PingFang SC', -apple-system, system-ui,
+    'Segoe UI', Roboto, Ubuntu, Cantarell, 'Noto Sans', BlinkMacSystemFont,
+    'Helvetica Neue', 'Hiragino Sans GB', Arial, sans-serif;
+  background-color: #eee;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+//noinspection CssOverwrittenProperties
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.vertical-grid {
+  display: grid;
+  grid-auto-flow: row;
+  grid-gap: 1rem;
+}
+
+.grid-auto-resize {
+  grid-template-rows: min-content;
+}
+
+.shadow-near {
+  box-shadow: 0.1rem 0.1rem 0.2rem rgba(0, 0, 0, 0.02);
+}
+
+.shadow-far {
+  box-shadow: 0.2rem 0.2rem 0.5rem rgba(0, 0, 0, 0.12);
+}
+
+.shadow-farther {
+  box-shadow: 0.2rem 0.2rem 1rem rgba(0, 0, 0, 0.12);
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.fill-width {
+  width: 100%;
+}
+
+.fill-screen {
+  flex: 1;
+}
+
+.flex-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flex-horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.rounded-small {
+  border-radius: 0.5rem;
+  -webkit-border-radius: 0.5rem;
+}
+
+.rounded-medium {
+  border-radius: 1rem;
+  -webkit-border-radius: 1rem;
+}
+
+.rounded-large {
+  border-radius: 2rem;
+  -webkit-border-radius: 2rem;
+}
