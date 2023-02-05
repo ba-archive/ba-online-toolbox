@@ -1,35 +1,41 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 import HomepageNavigator from './HomepageNavigator.vue';
 
 const route = useRoute();
-const router = useRouter();
 
 const isMainPage = computed(() => {
   return '/' === route.path;
 });
-
-const navRoutes = router
-  .getRoutes()
-  .filter(route => route.meta?.shouldShowInNavbar)
-  .sort((a, b) => {
-    return (a.meta?.navOrder as number) - (b.meta?.navOrder as number) || 0;
-  });
 </script>
 
 <template>
-  <div class="nav-bar">
-    <router-link
-      v-for="navRoute in navRoutes"
-      :key="navRoute.path"
-      :to="navRoute.path"
-    >
-      {{ navRoute.meta?.title }}
-    </router-link>
-  </div>
+  <transition name="menu">
+    <div class="nav-bar" v-if="!isMainPage">
+      <router-link to="/"
+        ><svg
+          class="navigation-arrow"
+          xmlns="http://www.w3.org/2000/svg"
+          xml:space="preserve"
+          viewBox="0 0 451.8 451.8"
+        >
+          <!-- eslint-disable max-len -->
+          <path
+            fill="#3f88f2"
+            d="M225.9 354.7c-8.1 0-16.2-3.1-22.4-9.3L9.3 151.2c-12.4-12.4-12.4-32.4 0-44.8C21.7 94 41.7 94 54 106.4l171.9 171.9 171.9-171.9c12.4-12.4 32.4-12.4 44.7 0 12.4 12.4 12.4 32.4 0 44.8L248.3 345.4c-6.2 6.2-14.3 9.3-22.4 9.3z"
+          />
+          <!-- eslint-enable max-len --></svg
+        ><span>Home</span></router-link
+      >
+    </div>
+  </transition>
   <homepage-navigator v-if="isMainPage" />
-  <router-view></router-view>
+  <router-view v-slot="{ Component }">
+    <keep-alive :max="2">
+      <component :is="Component" />
+    </keep-alive>
+  </router-view>
 </template>
 
 <style scoped lang="scss">
@@ -37,36 +43,73 @@ const navRoutes = router
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   background-color: #fff;
   width: 100vw;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   font-weight: bold;
-  user-select: none;
   font-size: 16px;
+  user-select: none;
+
+  .navigation-arrow {
+    display: none;
+  }
 
   a {
-    text-decoration: none;
-    color: #3f88f2;
+    display: flex;
     position: relative;
-    padding: 16px 8px;
+    justify-content: center;
+    align-items: center;
     transition: all 0.375s ease-in-out;
+    padding: 16px 8px;
+    color: var(--color-arona-blue);
+    text-decoration: none;
 
     &:hover {
+      background-color: var(--color-arona-blue);
       color: #fff;
-      background-color: #3f88f2;
     }
 
     &.router-link-exact-active {
       &::after {
-        content: '';
         position: absolute;
         bottom: 0;
         left: 0;
+        background-color: var(--color-arona-blue);
         width: 100%;
         height: 2px;
-        background-color: #3f88f2;
+        content: '';
       }
     }
   }
+}
+
+@media (max-width: 768px) {
+  .nav-bar {
+    justify-content: flex-start;
+    font-weight: normal;
+
+    a:hover {
+      background-color: inherit;
+      color: var(--color-arona-blue);
+    }
+
+    .navigation-arrow {
+      display: inline-flex;
+      transform: rotate(90deg);
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+.menu-enter-active,
+.menu-leave-active {
+  transition: all 0.375s ease-in-out;
+}
+
+.menu-enter-from,
+.menu-leave-to {
+  transform: translateY(-100%);
+  opacity: 0;
 }
 </style>

@@ -1,13 +1,22 @@
+html {
+  --color-arona-blue: #3f88f2;
+  --color-text-main: #333;
+  --color-bottom-action-bar: #fff;
+  --color-body-background: #eee;
+  --color-button-background: #3f88f2;
+}
+
 body {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
+  transition: background-color 0.375s ease-in-out;
   box-sizing: border-box;
+  background-color: var(--color-body-background);
   font-family: 'Microsoft YaHei', 'PingFang SC', -apple-system, system-ui,
     'Segoe UI', Roboto, Ubuntu, Cantarell, 'Noto Sans', BlinkMacSystemFont,
     'Helvetica Neue', 'Hiragino Sans GB', Arial, sans-serif;
-  background-color: #eee;
 }
 
 * {
@@ -26,9 +35,9 @@ body {
 }
 
 .vertical-grid {
+  grid-gap: 1rem;
   display: grid;
   grid-auto-flow: row;
-  grid-gap: 1rem;
 }
 
 .grid-auto-resize {
@@ -87,4 +96,12 @@ body {
 .rounded-large {
   border-radius: 2rem;
   -webkit-border-radius: 2rem;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-button-background);
+  padding: 0.5rem 1rem;
 }

@@ -223,14 +223,14 @@ function handleUpdateGlobalReferenceMode(value: boolean) {
 
 :deep(.translator-container) {
   display: flex;
-  width: 20rem;
   justify-content: center;
+  width: 20rem;
 }
 
 :deep(.content-container) {
+  grid-gap: 1rem;
   display: grid;
   grid-template-columns: 1fr min-content 1fr;
-  grid-gap: 1rem;
   width: 48rem;
 }
 
@@ -239,9 +239,9 @@ function handleUpdateGlobalReferenceMode(value: boolean) {
   border-radius: 3px;
 
   &:focus {
+    z-index: 999;
     outline: none;
     border: 1px solid #5bab70;
-    z-index: 999;
   }
 }
 
@@ -273,15 +273,15 @@ function handleUpdateGlobalReferenceMode(value: boolean) {
 }
 
 #proofread-container {
+  display: flex;
   position: fixed;
   top: 0;
   right: 0;
-  width: fit-content;
-  height: 100vh;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: fit-content;
+  height: 100vh;
 }
 
 #proofreader {

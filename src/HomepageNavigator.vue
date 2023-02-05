@@ -21,7 +21,10 @@ const mainRoutes = router
         :to="mainRoute.path"
       >
         <img :src="mainRoute.meta?.icon" alt="" />
-        <span>{{ mainRoute.meta.title }}</span>
+        <div>
+          <div class="title">{{ mainRoute.meta.title }}</div>
+          <div class="description">{{ mainRoute.meta.description }}</div>
+        </div>
       </router-link>
     </div>
   </div>
@@ -30,25 +33,43 @@ const mainRoutes = router
 <style scoped lang="scss">
 .main-page-navigation {
   display: grid;
-  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
   grid-auto-rows: min-content;
+  gap: 1rem;
 
   .home-nav-link {
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: flex-start;
+    align-items: center;
     background-color: #ffffff;
-    padding: 8px;
-    text-decoration: none;
+    padding: 16px;
     color: #333;
     font-weight: bold;
+    text-decoration: none;
 
     img {
-      width: 2rem;
-      height: 2rem;
-      margin-right: 1rem;
+      margin-right: 8px;
+      width: 32px;
+      height: 32px;
     }
+
+    .title {
+      font-weight: bold;
+      font-size: 1.25rem;
+    }
+
+    .description {
+      color: lightgrey;
+      font-weight: normal;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .main-page-navigation {
+    grid-template-columns: 1fr;
+    width: calc(100vw - 64px);
   }
 }
 </style>
