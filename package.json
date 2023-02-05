@@ -7,7 +7,8 @@
     "dev": "vite --host",
     "format": "prettier --config .prettierrc.json -uw ./src/ *.md",
     "check": "vue-tsc --noEmit; eslint --config ./.eslintrc.json ./src/ --ext .js,.ts,.vue",
-    "build": "pnpm format; vue-tsc && vite build",
+    "build:json": "eslint --config ./.eslintrc.json ./public/ && node ./CICD/build_json.js",
+    "build": "pnpm format; pnpm build:json && vue-tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -34,11 +35,13 @@
     "@vitejs/plugin-vue": "4.0.0",
     "@vue/compiler-sfc": "3.x",
     "@vue/eslint-config-typescript": "11.0.2",
+    "chalk": "5.2.0",
     "eslint": "8.33.0",
     "eslint-config-prettier": "8.6.0",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-sort-exports": "0.8.0",
     "eslint-plugin-vue": "9.9.0",
+    "eslint-plugin-yaml": "0.5.0",
     "naive-ui": "2.34.3",
     "postcss": "8.4.21",
     "postcss-plugin-px2rem": "0.8.1",
