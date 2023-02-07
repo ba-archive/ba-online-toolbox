@@ -12,7 +12,7 @@ const isMainPage = computed(() => {
 
 <template>
   <transition name="menu">
-    <div class="nav-bar" v-if="!isMainPage">
+    <div class="nav-bar" id="nav-bar" v-if="!isMainPage">
       <router-link to="/"
         ><svg
           class="navigation-arrow"

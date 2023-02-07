@@ -6,6 +6,7 @@ declare module 'vue-router' {
     icon: string;
     shouldShowInHomepageNav: boolean;
     shouldShowInNavbar: boolean;
+    description: string;
     navOrder: number;
   }
 }
@@ -19,18 +20,33 @@ const routes: RouteRecordRaw[] = [
       shouldShowInNavbar: true,
       title: 'Home',
       icon: '/image/home.svg',
+      description: '传送回主页',
       navOrder: 0,
     },
     children: [
+      {
+        path: 'aronaTalk',
+        name: 'AronaTalk',
+        meta: {
+          shouldShowInHomepageNav: true,
+          shouldShowInNavbar: true,
+          icon: '/image/arona_icon.webp',
+          title: 'AronaTalk',
+          description: 'BA 前端标准靶场',
+          navOrder: 1,
+        },
+        component: () => import('../tools/AronaTalk/AronaTalkHome.vue'),
+      },
       {
         path: '/momotalk',
         name: 'TranslateMomotalk',
         meta: {
           shouldShowInHomepageNav: true,
-          shouldShowInNavbar: true,
+          shouldShowInNavbar: false,
           icon: '/image/translation.svg',
           title: 'Momotalk 翻译',
-          navOrder: 1,
+          description: '开发人员用的 Momotalk 翻译工具',
+          navOrder: 2,
         },
         component: () =>
           import('../tools/MomotalkTranslator/MomotalkTranslatorHome.vue'),

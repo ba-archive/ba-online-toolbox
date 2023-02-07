@@ -4,6 +4,10 @@ html {
   --color-bottom-action-bar: #fff;
   --color-body-background: #eee;
   --color-button-background: #3f88f2;
+  --color-text-input-field: #f5f5f5;
+  --default-font-set: 'Microsoft YaHei', 'PingFang SC', -apple-system, system-ui,
+    'Segoe UI', Roboto, Ubuntu, Cantarell, 'Noto Sans', BlinkMacSystemFont,
+    'Helvetica Neue', 'Hiragino Sans GB', Arial, sans-serif;
 }
 
 body {
@@ -14,9 +18,7 @@ body {
   transition: background-color 0.375s ease-in-out;
   box-sizing: border-box;
   background-color: var(--color-body-background);
-  font-family: 'Microsoft YaHei', 'PingFang SC', -apple-system, system-ui,
-    'Segoe UI', Roboto, Ubuntu, Cantarell, 'Noto Sans', BlinkMacSystemFont,
-    'Helvetica Neue', 'Hiragino Sans GB', Arial, sans-serif;
+  font-family: var(--default-font-set);
 }
 
 * {
