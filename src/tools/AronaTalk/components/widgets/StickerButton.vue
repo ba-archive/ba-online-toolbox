@@ -71,10 +71,8 @@ const props = withDefaults(
 
 const stickerButtonPositionElement = ref<HTMLElement>();
 
-const {
-  left: stickerButtonLeft,
-  height: stickerButtonHeight,
-} = useElementBounding(stickerButtonPositionElement);
+const { left: stickerButtonLeft, height: stickerButtonHeight } =
+  useElementBounding(stickerButtonPositionElement);
 
 const stickerContainerOffset = computed(() => stickerButtonHeight.value + 8);
 
