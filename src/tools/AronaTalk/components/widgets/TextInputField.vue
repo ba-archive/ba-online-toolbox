@@ -17,12 +17,12 @@
 
 <script setup lang="ts">
 import { Ref, computed, ref, watch } from 'vue';
-import { useAronaTalkContentsStore } from '../../store/AronaTalkContentsStore';
+import { useAronaTalkStore } from '../../store/AronaTalkStore';
 import { useElementSize } from '@vueuse/core';
 
-const aronaTalkContentsStore = useAronaTalkContentsStore();
+const aronaTalkStore = useAronaTalkStore();
 
-const chatText: Ref<string> = ref(aronaTalkContentsStore.getCurrentInput);
+const chatText: Ref<string> = ref(aronaTalkStore.getCurrentInputText);
 
 const textAreaElement = ref(null);
 const textAreaSizeMonitorElement = ref(null);
@@ -52,11 +52,11 @@ function textToHtml(text: string) {
 }
 
 watch(chatText, newChatText => {
-  aronaTalkContentsStore.setCurrentInput(newChatText);
+  aronaTalkStore.setCurrentInputText(newChatText);
 });
 
 watch(
-  () => aronaTalkContentsStore.getCurrentInput,
+  () => aronaTalkStore.getCurrentInputText,
   newInput => {
     if (0 === newInput.length) {
       chatText.value = '';
@@ -69,6 +69,7 @@ watch(
 #text-input-field {
   appearance: none;
   transition: all 0.175s ease-in-out;
+  margin-right: 0.5rem;
   border: none;
   border-radius: 4px;
   background-color: var(--color-text-input-field);

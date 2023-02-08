@@ -109,7 +109,7 @@ function chatContentParser(tokens: ContentToken[]) {
           type: 'Command',
           value: tokens[currentPos + 1].value,
         });
-        currentPos += 2;
+        currentPos += 3; // 跳过命令与其他符号的分隔标签
         break;
       case 'WhiteSpace':
         messageContentAst.push({

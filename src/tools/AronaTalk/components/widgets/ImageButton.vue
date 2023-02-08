@@ -1,29 +1,51 @@
 <template>
-  <svg
-    class="image-button"
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 512 444.27"
+  <div
+    class="button-container"
+    :style="{ paddingLeft: paddingLeft, paddingRight: paddingRight }"
   >
-    <!-- eslint-disable max-len -->
-    <path
-      d="m369.89,80.56c-10.02,0-20.53,5.01-28.05,12.52s-10.02,15.53-10.02,25.54c0,20.53,18.03,38.06,38.06,38.06s38.06-18.03,38.06-38.06-18.03-38.06-38.06-38.06Z"
-    />
-    <path
-      d="m339.34,184.73c-7.51-18.03-33.05-20.53-45.57-5.01l-33.05,48.58c-10.02,15.53-33.05,15.53-43.07,0l-10.02-12.52c-10.02-15.53-33.05-12.52-43.07,2.5l-56.59,89.15c-10.02,18.03,0,40.57,23.04,40.57h238.89c18.03,0,30.55-20.53,23.04-38.06l-53.59-125.2Z"
-    />
-    <path
-      d="m446.06,444.27H65.94c-36.36,0-65.94-29.58-65.94-65.94V65.94C0,29.58,29.58,0,65.94,0h380.12c36.36,0,65.94,29.58,65.94,65.94v312.39c0,36.36-29.58,65.94-65.94,65.94ZM65.94,40c-14.3,0-25.94,11.64-25.94,25.94v312.39c0,14.3,11.64,25.94,25.94,25.94h380.12c14.3,0,25.94-11.64,25.94-25.94V65.94c0-14.3-11.64-25.94-25.94-25.94H65.94Z"
-    />
-    <!-- eslint-disable max-len -->
-  </svg>
+    <svg
+      class="add-button"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 512 512"
+    >
+      <!-- eslint-disable max-len -->
+      <path
+        d="M256,0C114.8,0,0,114.8,0,256s114.8,256,256,256s256-114.9,256-256S397.2,0,256,0z M256,472.3
+	c-119.3,0-216.3-97-216.3-216.3S136.7,39.7,256,39.7s216.3,97,216.3,216.3S375.3,472.3,256,472.3z"
+      />
+      <path
+        d="M355.1,234.4h-79.3v-79.3c0-10.9-8.9-19.8-19.8-19.8s-19.8,8.9-19.8,19.8v79.3h-79.3c-11,0-19.8,8.9-19.8,19.8
+	s8.9,19.8,19.8,19.8h79.3v79.3c0,10.9,8.9,19.8,19.8,19.8c11,0,19.8-8.9,19.8-19.8V274h79.3c11,0,19.8-8.9,19.8-19.8
+	S366.1,234.4,355.1,234.4z"
+      />
+      <!-- eslint-disable max-len -->
+    </svg>
+    <input style="display: none" ref="imageInput" accept="image/*" />
+  </div>
 </template>
 
 <script setup lang="ts">
-//
+withDefaults(
+  defineProps<{
+    paddingLeft?: string;
+    paddingRight?: string;
+  }>(),
+  {
+    paddingLeft: '0.5rem',
+    paddingRight: '0.5rem',
+  }
+);
 </script>
 
 <style scoped lang="scss">
-.image-button {
+.button-container {
+  display: flex;
+  flex: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-button {
   fill: var(--color-text-main);
   width: 1.5rem;
   height: 1.5rem;

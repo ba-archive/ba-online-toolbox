@@ -1,7 +1,7 @@
 <template>
   <div class="action-bar">
-    <image-button />
-    <sticker-button />
+    <image-button padding-left="0.5rem" padding-right="0.25rem" />
+    <sticker-button padding-left="0.25rem" padding-right="0.5rem" />
     <text-input-field />
     <div class="button rounded-small" @click="handleSendButtonClick">
       <svg
@@ -20,15 +20,15 @@
 </template>
 
 <script setup lang="ts">
-import { useAronaTalkContentsStore } from '../store/AronaTalkContentsStore';
+import { useAronaTalkStore } from '../store/AronaTalkStore';
 import ImageButton from './widgets/ImageButton.vue';
 import StickerButton from './widgets/StickerButton.vue';
 import TextInputField from './widgets/TextInputField.vue';
 
-const aronaTalkContentsStore = useAronaTalkContentsStore();
+const aronaTalkStore = useAronaTalkStore();
 
 function handleSendButtonClick() {
-  aronaTalkContentsStore.sendCurrentInputToStore();
+  aronaTalkStore.sendCurrentInputAstToStore();
 }
 </script>
 
@@ -40,9 +40,8 @@ function handleSendButtonClick() {
   left: 0;
   grid-template-columns: max-content max-content auto max-content;
   align-items: center;
-  gap: 0.5rem;
   background-color: var(--color-bottom-action-bar);
-  padding: 0.5rem 0.5rem 0.5rem 0.8rem;
+  padding: 0.5rem 0.5rem 0.5rem 0;
   width: 100vw;
 }
 
