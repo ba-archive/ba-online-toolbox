@@ -1,3 +1,5 @@
+/* eslint-disable no-case-declarations */
+
 import { ContentToken, MessageContentAst } from '../types/ChatContent';
 
 function chatContentTokenizer(
@@ -23,6 +25,24 @@ function chatContentTokenizer(
     if (currentChar === escapeCharacter) {
       tokens.push({
         type: 'EscapeCharacter',
+        value: currentChar,
+      });
+      currentPos++;
+      continue;
+    }
+
+    if (currentChar === '{') {
+      tokens.push({
+        type: 'StickerDeclaratorOpen',
+        value: currentChar,
+      });
+      currentPos++;
+      continue;
+    }
+
+    if (currentChar === '}') {
+      tokens.push({
+        type: 'StickerDeclaratorClose',
         value: currentChar,
       });
       currentPos++;
@@ -111,6 +131,30 @@ function chatContentParser(tokens: ContentToken[]) {
         });
         currentPos += 3; // 跳过命令与其他符号的分隔标签
         break;
+      case 'StickerDeclaratorOpen':
+        currentPos++;
+        let stickerName = '';
+        while (
+          currentPos < tokens.length &&
+          'StickerDeclaratorClose' !== tokens[currentPos].type
+        ) {
+          stickerName += tokens[currentPos].value;
+          currentPos++;
+        }
+        messageContentAst.push({
+          type: 'Sticker',
+          value: stickerName,
+        });
+        currentPos++; // 跳过结束标签
+        break;
+      case 'StickerDeclaratorClose':
+        // 意外的结束标签
+        messageContentAst.push({
+          type: 'Text',
+          value: currentToken.value,
+        });
+        currentPos++;
+        break;
       case 'WhiteSpace':
         messageContentAst.push({
           type: 'Text',
@@ -173,6 +217,7 @@ function textToAst(
   escapeCharacter = '\\',
   commandDeclarator = '/'
 ) {
+  console.log(chatContent);
   const tokens = chatContentTokenizer(
     chatContent,
     escapeCharacter,
