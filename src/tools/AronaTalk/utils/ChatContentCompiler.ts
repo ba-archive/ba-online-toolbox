@@ -1,5 +1,4 @@
 /* eslint-disable no-case-declarations */
-
 import { ContentToken, MessageContentAst } from '../types/ChatContent';
 
 function chatContentTokenizer(
