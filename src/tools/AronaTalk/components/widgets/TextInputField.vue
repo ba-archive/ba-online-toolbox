@@ -11,8 +11,9 @@
     class="text-area-size-monitor-element"
     ref="textAreaSizeMonitorElement"
     :style="{ width: `${shouldSizeMonitorElementWidthTo}px` }"
-    v-html="textToHtml(chatText)"
-  ></div>
+  >
+    {{ chatText }}
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -46,10 +47,6 @@ const shouldTextAreaHeightToClamped = computed(
       maxTextAreaHeight,
     ].sort((a, b) => a - b)[1]
 );
-
-function textToHtml(text: string) {
-  return text.replace(/\n/g, '<br>').replace(/ /g, '&ensp;');
-}
 
 watch(chatText, newChatText => {
   aronaTalkStore.setCurrentInputText(newChatText);
@@ -85,6 +82,7 @@ watch(
   position: absolute;
   top: -100px;
   visibility: hidden;
+  white-space: pre-wrap;
 }
 
 #text-input-field,

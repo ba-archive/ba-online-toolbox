@@ -17,6 +17,7 @@ export const useAronaTalkStore = defineStore({
   persist: true,
   getters: {
     getCurrentInputText: state => state.currentInputText,
+    getCurrentCharacter: state => state.currentCharacter,
   },
   actions: {
     setCurrentInputText(input: string) {

@@ -7,14 +7,16 @@
       transform: `translateY(calc(-50% - ${stickerContainerOffset}px))`,
     }"
   >
-    <img
-      class="sticker"
-      v-for="sticker in stickerList"
-      :src="getStickerUrl(sticker.filename)"
-      :key="sticker.filename"
-      :alt="sticker.filename"
-      @click="handleStickerSelect(sticker.filename)"
-    />
+    <div class="sticker-scroll">
+      <img
+        class="sticker"
+        v-for="sticker in stickerList"
+        :src="getStickerUrl(sticker.filename)"
+        :key="sticker.filename"
+        :alt="sticker.filename"
+        @click="handleStickerSelect(sticker.filename)"
+      />
+    </div>
   </div>
 
   <div
@@ -36,14 +38,10 @@
     >
       <!-- eslint-disable max-len -->
       <path
-        d="M437,75C388.7,26.6,324.4,0,256,0S123.3,26.6,75,75C26.6,123.3,0,187.6,0,256s26.6,132.7,75,181c48.4,48.4,112.6,75,181,75
-	s132.7-26.6,181-75c48.4-48.4,75-112.6,75-181S485.4,123.3,437,75z M256,472c-119.1,0-216-96.9-216-216S136.9,40,256,40
-	s216,96.9,216,216S375.1,472,256,472z"
+        d="m437,75C388.7,26.6,324.4,0,256,0S123.3,26.6,75,75C26.6,123.3,0,187.6,0,256s26.6,132.7,75,181c48.4,48.4,112.6,75,181,75s132.7-26.6,181-75c48.4-48.4,75-112.6,75-181s-26.6-132.7-75-181Zm-181,397c-119.1,0-216-96.9-216-216S136.9,40,256,40s216,96.9,216,216-96.9,216-216,216Z"
       />
       <path
-        d="M369,285.8c-0.1,0.2-7.3,21.6-25,42.4c-22.6,26.4-51.3,39.8-85.6,39.8c-34.5,0-64.2-13.6-88.3-40.3
-	c-18.9-21-27.3-42.5-27.3-42.7l-37.5,14c0.4,1.1,10.5,27.8,34,54.3C171,389.1,212.2,408,258.4,408c46.4,0,86.9-19.1,117.1-55.2
-	c22.3-26.7,31.2-53.5,31.5-54.7L369,285.8z"
+        d="m386.05,291.32c-9.26-3-19.36,1.1-23.86,9.73-4.03,7.73-9.98,17.5-18.19,27.15-22.6,26.4-51.3,39.8-85.6,39.8s-64.2-13.6-88.3-40.3c-8.87-9.85-15.42-19.82-19.89-27.64-4.84-8.49-15.16-12.17-24.31-8.75h-.03c-11.56,4.33-16.46,17.97-10.35,28.69,5.48,9.61,13.3,21.47,23.78,33.3,31.7,35.8,72.9,54.7,119.1,54.7s86.9-19.1,117.1-55.2c9.83-11.77,17.06-23.56,22.09-33.17,5.75-10.98.25-24.5-11.54-28.32h0Z"
       />
       <!-- eslint-disable max-len -->
       <circle cx="168" cy="180.1" r="32" />
@@ -84,7 +82,7 @@ function handleStickerButtonClick() {
 const stickerList = ref<Sticker[]>([]);
 
 axios
-  .get('/image/arona_talk/stickers/sticker_list.json')
+  .get('/config/json/sticker_list.json')
   .then(response => {
     stickerList.value = response.data;
   })
@@ -122,16 +120,24 @@ function handleStickerSelect(stickerName: string) {
   filter: drop-shadow(0 0 0.25rem rgba(0, 0, 0, 0.12));
   border-radius: 4px;
   background-color: var(--color-sticker-panel);
-  padding: 0.5rem;
-  max-width: 80vw;
-  max-width: 80dvw;
-  max-height: 50vh;
-  max-height: 50dvh;
-  overflow-y: auto;
+  padding: 0.5rem 0;
 
-  .sticker {
-    width: 4rem;
-    height: 4rem;
+  .sticker-scroll {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(4rem, 1fr));
+    gap: 0.25rem;
+    content-visibility: auto;
+    padding: 0 0.5rem;
+    max-width: 80vw;
+    max-width: 80dvw;
+    max-height: 50vh;
+    max-height: 50dvh;
+    overflow-y: auto;
+
+    .sticker {
+      width: 4rem;
+      height: 4rem;
+    }
   }
 
   &::after {
