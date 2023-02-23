@@ -64,6 +64,7 @@ export const useMainStore = defineStore({
         this.fileContent.title[index].TextEn = content.TextEn;
         this.fileContent.title[index].TextTh = content.TextTh;
         this.fileContent.title[index].TextTw = content.TextTw;
+        this.fileContent.title[index].unsure = content.unsure;
       }
     },
     updateMomotalk(id: number | undefined, content: ContentTranslation) {
@@ -78,6 +79,7 @@ export const useMainStore = defineStore({
           this.fileContent.content[index].MessageEN = content.MessageEN;
           this.fileContent.content[index].MessageTH = content.MessageTH;
           this.fileContent.content[index].MessageTW = content.MessageTW;
+          this.fileContent.content[index].unsure = content.unsure;
         }
       }
     },

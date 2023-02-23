@@ -1,5 +1,10 @@
 <template>
-  <n-card hoverable :title="messageType" class="shadow-near">
+  <card-unit
+    :title="messageType"
+    :type="props.content?.MessageCondition"
+    :unsure="isUnsure"
+    @flagUnsure="handleFlagUnsure"
+  >
     <div
       class="content-container"
       v-if="'Image' !== props.content?.MessageType"
@@ -94,13 +99,12 @@
         :src="getImagePath(props.content.ImagePath)"
       />
     </div>
-  </n-card>
+  </card-unit>
 </template>
 
 <script setup lang="ts">
 import {
   NButton,
-  NCard,
   NDropdown,
   NInputGroup,
   NSpace,
@@ -111,6 +115,7 @@ import { PropType, Ref, computed, onMounted, ref, watch } from 'vue';
 import { useMainStore } from '../store/mainStore';
 import { Content } from '../types/FileContent';
 import { halfToFull, translate } from '../utils/getTranslation';
+import CardUnit from './widgets/CardUnit.vue';
 import { DropdownMixedOption } from 'naive-ui/es/dropdown/src/interface';
 import { Key } from 'naive-ui/es/menu/src/interface';
 
@@ -138,6 +143,7 @@ const messageType = computed(() => {
   }
   return messageCondition[props.content?.MessageCondition || 'None'];
 });
+const isUnsure = ref(props.content?.unsure || false);
 
 const translateCn = ref('');
 const translateSuccess = ref(false);
@@ -150,6 +156,7 @@ function updateMessage() {
     MessageEN: messageEn.value,
     MessageTH: messageTh.value,
     MessageTW: messageTw.value,
+    unsure: isUnsure.value,
   });
 }
 
@@ -263,6 +270,11 @@ function getImagePath(rawPath: string | undefined) {
       .pop()}.png`;
   }
   return '';
+}
+
+function handleFlagUnsure(value: boolean) {
+  isUnsure.value = value;
+  updateMessage();
 }
 </script>
 

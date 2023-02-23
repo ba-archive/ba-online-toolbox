@@ -1,5 +1,10 @@
 <template>
-  <n-card hoverable class="shadow-near">
+  <card-unit
+    title="剧情标题"
+    type="Title"
+    :unsure="isUnsure"
+    @flagUnsure="handleFlagUnsure"
+  >
     <div class="content-container">
       <div class="vertical-grid grid-auto-resize">
         <div class="origin-title">
@@ -83,13 +88,12 @@
         </div>
       </div>
     </div>
-  </n-card>
+  </card-unit>
 </template>
 
 <script setup lang="ts">
 import {
   NButton,
-  NCard,
   NDropdown,
   NInputGroup,
   NSpace,
@@ -100,6 +104,7 @@ import { PropType, Ref, computed, ref, watch } from 'vue';
 import { useMainStore } from '../store/mainStore';
 import { Title } from '../types/FileContent';
 import { halfToFull, translate } from '../utils/getTranslation';
+import CardUnit from './widgets/CardUnit.vue';
 import { DropdownMixedOption } from 'naive-ui/es/dropdown/src/interface';
 import { Key } from 'naive-ui/es/menu/src/interface';
 
@@ -118,6 +123,7 @@ const titleKr = computed(() => props.content?.TextKr);
 const titleEn = computed(() => props.content?.TextEn);
 const titleTh = computed(() => props.content?.TextTh);
 const titleTw = computed(() => props.content?.TextTw);
+const isUnsure = ref(props.content?.unsure || false);
 
 const translateCn = ref('');
 const translateSuccess = ref(false);
@@ -179,6 +185,7 @@ function updateTitle() {
     TextEn: titleEn.value || '',
     TextTh: titleTh.value || '',
     TextTw: titleTw.value || '',
+    unsure: isUnsure.value,
   });
 }
 
@@ -225,6 +232,11 @@ function getReferenceTextByKey(key: Key | undefined) {
     );
   }
   return '';
+}
+
+function handleFlagUnsure(value: boolean) {
+  isUnsure.value = value;
+  updateTitle();
 }
 </script>
 

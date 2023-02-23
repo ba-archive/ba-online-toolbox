@@ -18,6 +18,7 @@ export interface Title {
   TextEn: string;
   TextTh: string;
   TextTw: string;
+  unsure?: boolean;
 }
 
 export interface TitleTranslation {
@@ -27,6 +28,7 @@ export interface TitleTranslation {
   TextEn: string;
   TextTh: string;
   TextTw: string;
+  unsure?: boolean;
 }
 
 export interface Content {
@@ -47,6 +49,7 @@ export interface Content {
   MessageEN?: string | undefined;
   MessageTH?: string | undefined;
   MessageTW?: string | undefined;
+  unsure?: boolean;
 }
 
 export interface ContentTranslation {
@@ -56,4 +59,5 @@ export interface ContentTranslation {
   MessageEN: string | undefined;
   MessageTH: string | undefined;
   MessageTW: string | undefined;
+  unsure?: boolean;
 }
