@@ -96,9 +96,19 @@ function clearAll() {
 function getStudentName() {
   const name = mainStore.getStudentName;
   if ([undefined, '暂无信息', '学生暂未录入', ''].includes(name)) {
-    return '';
+    return '新增学生';
   }
-  return '[' + name + ']';
+  return name;
+}
+
+// return 24h hhmm format time
+function getCurrentTime() {
+  const date = new Date();
+  const hour = date.getHours();
+  const minute = date.getMinutes();
+  return `${hour < 10 ? '0' + hour : hour}${
+    minute < 10 ? '0' + minute : minute
+  }`;
 }
 
 function handleDownload() {
@@ -109,7 +119,12 @@ function handleDownload() {
   });
   const proofreader = mainStore.getProofreader;
   const fileStatus = proofreadMode.value ? `已校-${proofreader}` : '待校';
-  saveAs(blob, `[${fileStatus}]${getStudentName()}${studentId.value}.yml`);
+  saveAs(
+    blob,
+    `${fileStatus}-${getCurrentTime()}-${getStudentName()}_${
+      studentId.value
+    }.yml`
+  );
   fileDownloaded.value = true;
 }
 
