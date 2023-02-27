@@ -13,21 +13,13 @@ const isMainPage = computed(() => {
 <template>
   <transition name="menu">
     <div class="nav-bar" id="nav-bar" v-if="!isMainPage">
-      <router-link to="/"
-        ><svg
-          class="navigation-arrow"
-          xmlns="http://www.w3.org/2000/svg"
-          xml:space="preserve"
-          viewBox="0 0 451.8 451.8"
-        >
+      <router-link to="/"><svg class="navigation-arrow" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
+          viewBox="0 0 451.8 451.8">
           <!-- eslint-disable max-len -->
-          <path
-            fill="#3f88f2"
-            d="M225.9 354.7c-8.1 0-16.2-3.1-22.4-9.3L9.3 151.2c-12.4-12.4-12.4-32.4 0-44.8C21.7 94 41.7 94 54 106.4l171.9 171.9 171.9-171.9c12.4-12.4 32.4-12.4 44.7 0 12.4 12.4 12.4 32.4 0 44.8L248.3 345.4c-6.2 6.2-14.3 9.3-22.4 9.3z"
-          />
-          <!-- eslint-enable max-len --></svg
-        ><span>Home</span></router-link
-      >
+          <path fill="#3f88f2"
+            d="M225.9 354.7c-8.1 0-16.2-3.1-22.4-9.3L9.3 151.2c-12.4-12.4-12.4-32.4 0-44.8C21.7 94 41.7 94 54 106.4l171.9 171.9 171.9-171.9c12.4-12.4 32.4-12.4 44.7 0 12.4 12.4 12.4 32.4 0 44.8L248.3 345.4c-6.2 6.2-14.3 9.3-22.4 9.3z" />
+          <!-- eslint-enable max-len -->
+        </svg><span>Home</span></router-link>
     </div>
   </transition>
   <homepage-navigator v-if="isMainPage" />

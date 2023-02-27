@@ -51,6 +51,20 @@ const routes: RouteRecordRaw[] = [
         component: () =>
           import('../tools/MomotalkTranslator/MomotalkTranslatorHome.vue'),
       },
+      {
+        path: '/translator',
+        name: 'TranslateScneario',
+        meta: {
+          shouldShowInHomepageNav: true,
+          shouldShowInNavbar: false,
+          icon: '/image/translation.svg',
+          title: '剧情翻译',
+          description: '开发人员用的剧情翻译工具',
+          navOrder: 2,
+        },
+        component: () =>
+          import('../tools/ScenarioTranslator/ScenarioTranslatorHome.vue'),
+      },
     ],
   },
 ];
