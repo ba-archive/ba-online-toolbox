@@ -1,0 +1,27 @@
+export type Language = 'TextCn' | 'TextTw' | 'TextJp' | 'TextEn' | 'TextKr' | 'TextTh';
+
+export interface Scenario {
+  GroupId: number,
+  translator: string,
+  content: ContentLine[]
+}
+
+export interface ContentLine {
+  TextJp: string,
+  TextCn: string,
+  TextKr: string,
+  TextEn: string,
+  TextTh: string,
+  TextTw: string,
+  GroupId: number,
+  SelectionGroup: number,
+  BGMId: number,
+  Sound: string,
+  Transition: number,
+  BGName: number,
+  BGEffect: number,
+  PopupFileName: string,
+  ScriptKr: string,
+  VoiceJp: string
+}
+

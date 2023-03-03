@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia';
-import { Scenario } from '../types/scenario';
+import { Scenario, ContentLine, Language } from '../types/content';
 
 export const useMainStore = defineStore({
   id: 'ScenarioTranslation',
   state: () => {
     return {
-      scenario: {} as Scenario[],
+      language: "TextEn" as Language,
+      scenario: {} as Scenario,
       title: '',
     };
   },
@@ -13,20 +14,24 @@ export const useMainStore = defineStore({
   getters: {
     getScenario: state => state.scenario,
     getTitle: state => state.title,
+    getLanguage: state => state.language,
   },
   actions: {
-    setScenario(scenario: Scenario[]) {
+    setScenario(scenario: Scenario) {
       this.scenario = scenario;
     },
     clearAll() {
-      this.scenario = {} as Scenario[];
+      this.scenario = {} as Scenario;
       this.title = '';
     },
-    updateScenario(scenario: Scenario, index: number) {
-      this.scenario[index] = scenario;
+    updateScenario(scenario: ContentLine, index: number) {
+      this.scenario.content[index] = scenario;
     },
     setTitle(title: string) {
       this.title = title;
+    },
+    setLanguage(language: Language) {
+      this.language = language;
     },
   },
 });
