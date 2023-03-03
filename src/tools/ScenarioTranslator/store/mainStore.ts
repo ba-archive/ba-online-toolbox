@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia';
-import { Scenario, ContentLine, Language } from '../types/content';
+import { ContentLine, Language, Scenario } from '../types/content';
 
 export const useMainStore = defineStore({
   id: 'ScenarioTranslation',
   state: () => {
     return {
-      language: "TextEn" as Language,
+      language: 'TextEn' as Language,
       scenario: {} as Scenario,
       title: '',
     };
