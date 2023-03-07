@@ -38,6 +38,7 @@
   </n-card>
   <!-- eslint-disable vue/valid-v-for -->
   <TranslatorCard
+    class="translator-card"
     v-for="(line, index) in mainStore.getScenario.content"
     :index="index"
     :line="line"
@@ -129,3 +130,9 @@ function copyToClipboard(text: string) {
   document.body.removeChild(input);
 }
 </script>
+
+<style scoped lang="scss">
+.translator-card {
+  width: 40rem;
+}
+</style>

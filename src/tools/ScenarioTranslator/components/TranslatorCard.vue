@@ -1,11 +1,17 @@
 <template>
-  <card-unit v-if="line?.TextJp" style="margin-bottom: 20px">
-    <n-tag :bordered="false">日文</n-tag>
-    <n-input type="text" :value="`${formatText}`"></n-input>
+  <card-unit
+    type="None"
+    title="剧情正文"
+    v-if="line?.TextJp"
+    style="margin-bottom: 20px"
+    @flag-unsure=""
+  >
+    <n-tag style="width: fit-content" :bordered="false">日文</n-tag>
+    <n-input type="textarea" :value="`${formatText}`"></n-input>
     <br />
     翻译:
     <n-input
-      type="text"
+      type="textarea"
       :placeholder="`${line[mainStore.getLanguage]}`"
       @change="changeHandler($event)"
     ></n-input>
@@ -59,5 +65,9 @@ function changeHandler(event: string) {
 
   props.line[mainStore.getLanguage] = event; // FIXME: 避免直接修改 props
   mainStore.updateScenario(props.line, props.index);
+}
+
+function handleFlagUnsure(value: boolean) {
+  console.log('flag unsure', value);
 }
 </script>

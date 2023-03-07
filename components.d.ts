@@ -11,6 +11,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     ElInput: typeof import('element-plus/es')['ElInput']
     NInput: typeof import('naive-ui')['NInput']
+    NInputArea: typeof import('naive-ui')['NInputArea']
     NTag: typeof import('naive-ui')['NTag']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
