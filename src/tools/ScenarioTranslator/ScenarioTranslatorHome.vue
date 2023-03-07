@@ -36,12 +36,14 @@
     如果对于标记有任何疑问,
     可以只输入翻译完成后的句子并在最前方加上"UnFormatted"供技术人员修改<br />
   </n-card>
+  <!-- eslint-disable vue/valid-v-for -->
   <TranslatorCard
     v-for="(line, index) in mainStore.getScenario.content"
     :index="index"
     :line="line"
     :language="mainStore.getLanguage"
   />
+  <!-- eslint-enable vue/valid-v-for -->
 </template>
 <script setup lang="ts">
 import { saveAs } from 'file-saver';

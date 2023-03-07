@@ -1,9 +1,9 @@
 import axios from 'axios';
+import sha256 from 'crypto-js/sha256';
 
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-ignore
-import { appKey, appSecret } from '../../public/translationSecrets';
-import sha256 from 'crypto-js/sha256';
+import { appKey, appSecret } from './translationSecrets';
 
 const salt = crypto.randomUUID();
 const api = '/api';

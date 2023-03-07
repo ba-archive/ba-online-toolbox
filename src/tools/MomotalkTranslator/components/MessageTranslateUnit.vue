@@ -112,10 +112,10 @@ import {
   NTag,
 } from 'naive-ui';
 import { PropType, Ref, computed, onMounted, ref, watch } from 'vue';
+import CardUnit from '../../public/components/CardUnit.vue';
+import { halfToFull, translate } from '../../public/getTranslation';
 import { useMainStore } from '../store/mainStore';
 import { Content } from '../types/FileContent';
-import { halfToFull, translate } from '../utils/getTranslation';
-import CardUnit from './widgets/CardUnit.vue';
 import { DropdownMixedOption } from 'naive-ui/es/dropdown/src/interface';
 import { Key } from 'naive-ui/es/menu/src/interface';
 

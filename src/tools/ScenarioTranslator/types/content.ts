@@ -1,17 +1,3 @@
-export type Language =
-  | 'TextCn'
-  | 'TextTw'
-  | 'TextJp'
-  | 'TextEn'
-  | 'TextKr'
-  | 'TextTh';
-
-export interface Scenario {
-  GroupId: number;
-  translator: string;
-  content: ContentLine[];
-}
-
 export interface ContentLine {
   TextJp: string;
   TextCn: string;
@@ -29,4 +15,18 @@ export interface ContentLine {
   PopupFileName: string;
   ScriptKr: string;
   VoiceJp: string;
+}
+
+export type Language =
+  | 'TextCn'
+  | 'TextTw'
+  | 'TextJp'
+  | 'TextEn'
+  | 'TextKr'
+  | 'TextTh';
+
+export interface Scenario {
+  GroupId: number;
+  translator: string;
+  content: ContentLine[];
 }

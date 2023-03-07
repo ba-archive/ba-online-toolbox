@@ -1,6 +1,7 @@
 <template>
-  <n-card v-if="line?.TextJp" style="margin-bottom: 20px">
-    日文原文: <n-input type="text" :value="`${formatText}`"></n-input>
+  <card-unit v-if="line?.TextJp" style="margin-bottom: 20px">
+    <n-tag :bordered="false">日文</n-tag>
+    <n-input type="text" :value="`${formatText}`"></n-input>
     <br />
     翻译:
     <n-input
@@ -8,10 +9,10 @@
       :placeholder="`${line[mainStore.getLanguage]}`"
       @change="changeHandler($event)"
     ></n-input>
-  </n-card>
+  </card-unit>
 </template>
 <script setup lang="ts">
-import { NCard, NInput } from 'naive-ui';
+import CardUnit from '../../public/components/CardUnit.vue';
 import { useMainStore } from '../store/mainStore';
 import { ContentLine } from '../types/content';
 
@@ -28,7 +29,7 @@ const textList = rawText.split(/(\[.*?\])/);
 console.log(textList);
 let formatText = '';
 for (let i = 0; i < textList.length; i++) {
-  if (textList[i].startsWith('[') || textList[i] == '') {
+  if (textList[i].startsWith('[') || textList[i] === '') {
     continue;
   }
 
@@ -43,7 +44,7 @@ function changeHandler(event: string) {
   }
   let ptr = 0;
   for (let i = 0; i < textList.length; i++) {
-    if (textList[i].startsWith('[') || textList[i] == '') {
+    if (textList[i].startsWith('[') || textList[i] === '') {
       continue;
     }
     textList[i] = event.split('\\')[ptr];
@@ -56,7 +57,7 @@ function changeHandler(event: string) {
   newText = newText.replaceAll('[#n]', '#n');
   console.log(newText);
 
-  props.line[mainStore.getLanguage] = event;
+  props.line[mainStore.getLanguage] = event; // FIXME: 避免直接修改 props
   mainStore.updateScenario(props.line, props.index);
 }
 </script>
