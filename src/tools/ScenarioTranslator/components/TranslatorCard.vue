@@ -4,7 +4,7 @@
     title="剧情正文"
     v-if="line?.TextJp"
     style="margin-bottom: 20px"
-    @flag-unsure=""
+    @flag-unsure="handleFlagUnsure"
   >
     <n-tag style="width: fit-content" :bordered="false">日文</n-tag>
     <n-input type="textarea" :value="`${formatText}`"></n-input>
@@ -62,7 +62,7 @@ function changeHandler(event: string) {
   }
   newText = newText.replaceAll('[#n]', '#n');
   console.log(newText);
-
+  /* eslint-disable-next-line vue/no-mutating-props */
   props.line[mainStore.getLanguage] = event; // FIXME: 避免直接修改 props
   mainStore.updateScenario(props.line, props.index);
 }
