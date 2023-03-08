@@ -1,7 +1,11 @@
 <template>
   <card-unit
     :title="messageType"
-    :type="props.content?.MessageCondition"
+    :type="
+      0 === props.content?.FavorScheduleId
+        ? props.content?.MessageCondition
+        : 'FavorRankUp'
+    "
     :unsure="isUnsure"
     @flagUnsure="handleFlagUnsure"
   >
@@ -140,6 +144,9 @@ const messageTw = ref(props.content?.MessageTW);
 const messageType = computed(() => {
   if ('Image' === props.content?.MessageType) {
     return '图片消息';
+  }
+  if (0 !== props.content?.FavorScheduleId) {
+    return '前往羁绊剧情';
   }
   return messageCondition[props.content?.MessageCondition || 'None'];
 });
