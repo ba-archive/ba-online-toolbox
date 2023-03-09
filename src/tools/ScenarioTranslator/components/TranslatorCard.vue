@@ -1,12 +1,21 @@
 <template>
-  <card-unit type="None" title="剧情正文" v-if="line?.TextJp" style="margin-bottom: 20px" @flag-unsure="handleFlagUnsure"
-    :unsure="line.Unsure">
+  <card-unit
+    type="None"
+    title="剧情正文"
+    v-if="line?.TextJp"
+    style="margin-bottom: 20px"
+    @flag-unsure="handleFlagUnsure"
+    :unsure="line.Unsure"
+  >
     <n-tag style="width: fit-content" :bordered="false">日文</n-tag>
     <n-input type="textarea" :value="`${formatText}`"></n-input>
     <br />
     翻译:
-    <n-input type="textarea" :placeholder="`${line[mainStore.getLanguage]}`"
-      @change="changeHandler($event, mainStore.original)"></n-input>
+    <n-input
+      type="textarea"
+      :placeholder="`${line[mainStore.getLanguage]}`"
+      @change="changeHandler($event, mainStore.original)"
+    ></n-input>
   </card-unit>
 </template>
 <script setup lang="ts">
@@ -37,8 +46,7 @@ if (!mainStore.original) {
     formatText += textList[i] + '[\\]';
   }
   formatText = formatText.slice(0, -3);
-}
-else {
+} else {
   formatText = props.line.TextJp;
 }
 function changeHandler(event: string, original: boolean) {

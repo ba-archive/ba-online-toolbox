@@ -2,20 +2,37 @@
   <n-card>
     <input type="file" @change="handleFileChange" />
     <br /><br />
-    <n-input type="text" :placeholder="mainStore.getTitle || '请输入标题'" @change="handleTitleChange($event)"
-      style="width: 300px" />
+    <n-input
+      type="text"
+      :placeholder="mainStore.getTitle || '请输入标题'"
+      @change="handleTitleChange($event)"
+      style="width: 300px"
+    />
     <br /><br />
-    <n-button @click="handleDownload" style="margin-right: 20px">保存 (下载文件)</n-button>
-    <n-button @click="handleOutput" style="margin-right: 20px">导出文件(清除unsure标识)</n-button>
-    <n-button @click="mainStore.clearAll" style="margin-right: 20px">清空 (注意: 此操作<span
-        style="color: red">不可逆</span>)</n-button>
-    <n-dropdown trigger="hover" :options="LanguageList" @select="changeLanguage">
+    <n-button @click="handleDownload" style="margin-right: 20px"
+      >保存 (下载文件)</n-button
+    >
+    <n-button @click="handleOutput" style="margin-right: 20px"
+      >导出文件(清除unsure标识)</n-button
+    >
+    <n-button @click="mainStore.clearAll" style="margin-right: 20px"
+      >清空 (注意: 此操作<span style="color: red">不可逆</span>)</n-button
+    >
+    <n-dropdown
+      trigger="hover"
+      :options="LanguageList"
+      @select="changeLanguage"
+    >
       <n-button style="margin-right: 20px">{{
         hm[mainStore.getLanguage]
       }}</n-button>
     </n-dropdown>
-    <n-button @click="copyToClipboard('[\\]')" style="margin-right: 20px">复制标记</n-button>
-    <n-button @click="handleSwitch" style="margin-right: 20px">切换显示方式: {{ mainStore.original ? '原文' : '预处理' }}</n-button>
+    <n-button @click="copyToClipboard('[\\]')" style="margin-right: 20px"
+      >复制标记</n-button
+    >
+    <n-button @click="handleSwitch" style="margin-right: 20px"
+      >切换显示方式: {{ mainStore.original ? '原文' : '预处理' }}</n-button
+    >
     <br /><br />
     <p>为避免意外发生, 请在读取文件之前完成配置, 更换文件之前务必点击清空</p>
   </n-card>
@@ -29,8 +46,13 @@
     可以只输入翻译完成后的句子并在最前方加上"UnFormatted"供技术人员修改<br />
   </n-card>
   <!-- eslint-disable vue/valid-v-for -->
-  <TranslatorCard class="translator-card" v-for="(line, index) in mainStore.getScenario.content" :index="index"
-    :line="line" :language="mainStore.getLanguage" />
+  <TranslatorCard
+    class="translator-card"
+    v-for="(line, index) in mainStore.getScenario.content"
+    :index="index"
+    :line="line"
+    :language="mainStore.getLanguage"
+  />
   <!-- eslint-enable vue/valid-v-for -->
 </template>
 <script setup lang="ts">
