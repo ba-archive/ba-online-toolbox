@@ -19,10 +19,8 @@ export const useMainStore = defineStore({
   },
   actions: {
     SwitchOriginal(flg: boolean | undefined = undefined) {
-      if (flg !== undefined)
-        this.original = flg;
-      else
-        this.original = !this.original;
+      if (flg !== undefined) this.original = flg;
+      else this.original = !this.original;
     },
     setScenario(scenario: Scenario) {
       this.scenario = scenario;
