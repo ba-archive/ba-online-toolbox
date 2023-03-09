@@ -8,6 +8,7 @@ export const useMainStore = defineStore({
       language: 'TextEn' as Language,
       scenario: {} as Scenario,
       title: '',
+      original: true,
     };
   },
   persist: true,
@@ -17,6 +18,12 @@ export const useMainStore = defineStore({
     getLanguage: state => state.language,
   },
   actions: {
+    SwitchOriginal(flg: boolean | undefined = undefined) {
+      if (flg !== undefined)
+        this.original = flg;
+      else
+        this.original = !this.original;
+    },
     setScenario(scenario: Scenario) {
       this.scenario = scenario;
     },

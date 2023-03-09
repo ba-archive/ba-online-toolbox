@@ -1,35 +1,27 @@
 <template>
   <n-card>
     <input type="file" @change="handleFileChange" />
-    <br />
-    <n-input
-      type="text"
-      :placeholder="mainStore.getTitle || '请输入标题'"
-      @change="handleTitleChange($event)"
-      style="width: 300px"
-    />
-    <br />
-    <n-button @click="handleDownload" style="margin-right: 20px"
-      >保存 (下载文件)</n-button
-    >
-    <n-button @click="mainStore.clearAll" style="margin-right: 20px"
-      >清空 (注意: 此操作<span style="color: red">不可逆</span>)</n-button
-    >
-    <n-dropdown
-      trigger="hover"
-      :options="LanguageList"
-      @select="changeLanguage"
-    >
+    <br /><br />
+    <n-input type="text" :placeholder="mainStore.getTitle || '请输入标题'" @change="handleTitleChange($event)"
+      style="width: 300px" />
+    <br /><br />
+    <n-button @click="handleDownload" style="margin-right: 20px">保存 (下载文件)</n-button>
+    <n-button @click="handleOutput" style="margin-right: 20px">保存 (导出文件/清除unsure标识)</n-button>
+    <n-button @click="mainStore.clearAll" style="margin-right: 20px">清空 (注意: 此操作<span
+        style="color: red">不可逆</span>)</n-button>
+    <n-dropdown trigger="hover" :options="LanguageList" @select="changeLanguage">
       <n-button style="margin-right: 20px">{{
         hm[mainStore.getLanguage]
       }}</n-button>
     </n-dropdown>
-    <n-button @click="copyToClipboard('[\\]')" style="margin-right: 20px"
-      >复制标记</n-button
-    >
+    <n-button @click="copyToClipboard('[\\]')" style="margin-right: 20px">复制标记</n-button>
+    <n-button @click="handleSwitch" style="margin-right: 20px">切换显示方式: {{ mainStore.original ? "原文" : "预处理" }}</n-button>
+    <br /><br />
+    <p>为避免意外发生, 请在读取文件之前完成配置</p>
   </n-card>
   <n-card>
     临时剧情翻译GUI<br />
+    如果使用的是预处理模式: <br />
     请注意原句中出现的"<span style="color: red">[\]</span>"标记是分割标记,
     标记前后可能是一个完整的句子或者两个独立的句子<br />
     在翻译的时候请注意保持句子中[\]标记数量的一致性<br />
@@ -37,13 +29,8 @@
     可以只输入翻译完成后的句子并在最前方加上"UnFormatted"供技术人员修改<br />
   </n-card>
   <!-- eslint-disable vue/valid-v-for -->
-  <TranslatorCard
-    class="translator-card"
-    v-for="(line, index) in mainStore.getScenario.content"
-    :index="index"
-    :line="line"
-    :language="mainStore.getLanguage"
-  />
+  <TranslatorCard class="translator-card" v-for="(line, index) in mainStore.getScenario.content" :index="index"
+    :line="line" :language="mainStore.getLanguage" />
   <!-- eslint-enable vue/valid-v-for -->
 </template>
 <script setup lang="ts">
@@ -110,6 +97,24 @@ function handleDownload() {
     .replace(/:/g, '-')
     .replace(/\//g, '-');
   saveAs(blob, `${mainStore.getTitle}.${date}.json`);
+}
+
+function handleOutput() {
+  for (let i = 0; i < mainStore.getScenario.content.length; i++) {
+    mainStore.getScenario.content[i].Unsure = undefined;
+  }
+  const blob = new Blob([JSON.stringify(mainStore.getScenario)], {
+    type: 'application/json',
+  });
+  const date = new Date()
+    .toLocaleString()
+    .replace(/:/g, '-')
+    .replace(/\//g, '-');
+  saveAs(blob, `${mainStore.getTitle}.${date}.json`);
+}
+
+function handleSwitch() {
+  mainStore.SwitchOriginal();
 }
 
 function handleTitleChange(event: string) {
