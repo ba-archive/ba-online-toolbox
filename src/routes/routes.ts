@@ -65,6 +65,20 @@ const routes: RouteRecordRaw[] = [
         component: () =>
           import('../tools/ScenarioTranslator/ScenarioTranslatorHome.vue'),
       },
+      {
+        path: '/editor',
+        name: 'ScnearioEditor',
+        meta: {
+          shouldShowInHomepageNav: true,
+          shouldShowInNavbar: false,
+          icon: '/image/translation.svg',
+          title: '剧情编辑器',
+          description: '剧情编辑器, 包括自定义剧情编辑以及剧情翻译',
+          navOrder: 3,
+        },
+        component: () =>
+          import('../tools/ScenarioEditor/ScenarioEditorHome.vue'),
+      },
     ],
   },
 ];

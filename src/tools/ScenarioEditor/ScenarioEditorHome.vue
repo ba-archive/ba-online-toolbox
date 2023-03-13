@@ -1,0 +1,16 @@
+<template>
+  <load-file-page v-if="!mainStore.isLoadFile"></load-file-page>
+  <main-page v-else></main-page>
+</template>
+<script setup lang="ts">
+import LoadFilePage from './components/LoadFilePage.vue';
+import MainPage from './components/MainPage.vue';
+import { useScenarioStore } from './store/ScenarioEditorStore';
+
+const mainStore = useScenarioStore();
+</script>
+<style>
+load-file-page {
+  display: flex;
+}
+</style>
