@@ -10,6 +10,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     ElInput: typeof import('element-plus/es')['ElInput']
+    NButton: typeof import('naive-ui')['NButton']
     NInput: typeof import('naive-ui')['NInput']
     NInputArea: typeof import('naive-ui')['NInputArea']
     NTag: typeof import('naive-ui')['NTag']

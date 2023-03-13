@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import LoadFilePage from './components/LoadFilePage.vue';
 import MainPage from './components/MainPage.vue';
-import { useScenarioStore } from './store/ScenarioEditorStore';
+import { useScenarioStore } from './store/scenarioEditorStore';
 
 const mainStore = useScenarioStore();
 </script>

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { Scenario } from '../types/content';
+import { ContentLine, Scenario } from '../types/content';
 
 export const useScenarioStore = defineStore({
   id: 'scenarioStore',
@@ -27,6 +27,9 @@ export const useScenarioStore = defineStore({
       this.scenario = scenario;
       this.loadFile();
     },
+    setContentLine(content: ContentLine, line: number) {
+      this.scenario.content[line] = content;
+    },
     setTitle(title: string) {
       this.title = title;
     },
@@ -37,3 +40,11 @@ export const useScenarioStore = defineStore({
     },
   },
 });
+
+export type Language =
+  | 'TextCn'
+  | 'TextTw'
+  | 'TextJp'
+  | 'TextEn'
+  | 'TextKr'
+  | 'TextTh';

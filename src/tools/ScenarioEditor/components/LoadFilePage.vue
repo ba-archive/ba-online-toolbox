@@ -14,21 +14,19 @@
           id="uploadFile"
           type="file"
           style="display: none"
-          @change="fileHandle($event)"
+          @change="inputHandle($event)"
         />
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { useScenarioStore } from '../store/ScenarioEditorStore';
+import jsYaml from 'js-yaml';
+import { useScenarioStore } from '../store/scenarioEditorStore';
 import { Scenario } from '../types/content';
 
 const mainStore = useScenarioStore();
 
-/**
- * 拖拽文件处理函数, 读取文件名以及内容并解析为Scenario, 并将其存入store
- */
 const dragHandle = (event: DragEvent): void => {
   event.preventDefault();
   const files = event.dataTransfer?.files;
@@ -36,28 +34,29 @@ const dragHandle = (event: DragEvent): void => {
     alert('只能上传一个文件');
     return;
   }
-  mainStore.setTitle(files![0].name);
-  readFile(files![0]).then((data: string) => {
-    const parsed = JSON.parse(data) as Scenario;
-    mainStore.setScenario(parsed);
-  });
+  fileHandle(files![0]);
 };
 
-/**
- * 拖拽文件时阻止默认事件
- */
 const dragOver = (e: DragEvent): void => {
   e.preventDefault();
 };
 
-const fileHandle = (event: Event): void => {
+const inputHandle = (event: Event): void => {
   const target = event.target as HTMLInputElement;
   const file = (target.files as FileList)[0];
+  fileHandle(file);
+};
+
+const fileHandle = (file: File): void => {
   mainStore.setTitle(file.name);
   readFile(file).then(data => {
     let parsed: Scenario = {} as Scenario;
     try {
-      parsed = JSON.parse(data) as Scenario;
+      if (file.name.endsWith('.json')) {
+        parsed = JSON.parse(data) as Scenario;
+      } else if (file.name.endsWith('')) {
+        parsed = jsYaml.load(data) as Scenario;
+      }
     } catch {
       alert('文件格式错误');
       return;
