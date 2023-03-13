@@ -25,7 +25,7 @@ export const useScenarioStore = defineStore({
     },
     setScenario(scenario: Scenario) {
       this.scenario = scenario;
-      console.log('SetScenario', scenario);
+      this.loadFile();
     },
     setTitle(title: string) {
       this.title = title;
