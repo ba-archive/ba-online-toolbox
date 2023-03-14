@@ -5,7 +5,9 @@
     :style="`background-color: ${colorHandle()}`"
   >
     <n-image src="../src/upload.svg"></n-image>
-    <n-text>{{ line[config.getLanguage] }}</n-text>
+    <n-text>{{
+      line[config.isSwitchLanguage ? config.getLanguage : config.targetLang]
+    }}</n-text>
   </n-card>
 </template>
 <script setup lang="ts">

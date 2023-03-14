@@ -80,6 +80,10 @@
       </n-button>
       <n-button @click="translateHandle">翻译目标语言</n-button>
       <n-button @click="acceptHandle">接受机翻</n-button>
+      <n-button @click="config.changeLanguage"
+        >显示语言:
+        {{ config.isSwitchLanguage ? '参考语言' : '目标语言' }}</n-button
+      >
     </div>
     <div id="textLine">
       <n-input

@@ -42,7 +42,7 @@ const mainStore = useScenarioStore();
   border-radius: 1em;
   background-color: #eee;
   width: 50%;
-  max-height: 82.5vh;
+  max-height: 100vh;
 }
 #opt {
   display: flex;

@@ -9,6 +9,7 @@ export const useGlobalConfig = defineStore({
     language: 'TextJp' as Language,
     targetLang: 'TextCn' as Language,
     tmpMachineTranslate: '',
+    switchLanguage: false,
   }),
   getters: {
     isProofread: state => state.proofread,
@@ -16,6 +17,7 @@ export const useGlobalConfig = defineStore({
     getLanguage: state => state.language,
     getTargetLang: state => state.targetLang,
     getTmpMachineTranslate: state => state.tmpMachineTranslate,
+    isSwitchLanguage: state => state.switchLanguage,
   },
   actions: {
     startProofread() {
@@ -23,6 +25,9 @@ export const useGlobalConfig = defineStore({
     },
     stopProofread() {
       this.proofread = false;
+    },
+    changeLanguage() {
+      this.switchLanguage = !this.switchLanguage;
     },
     setProofread(proofread: boolean) {
       this.proofread = proofread;
