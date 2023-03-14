@@ -8,12 +8,14 @@ export const useGlobalConfig = defineStore({
     selectLine: -1,
     language: 'TextJp' as Language,
     targetLang: 'TextCn' as Language,
+    tmpMachineTranslate: '',
   }),
   getters: {
     isProofread: state => state.proofread,
     getSelectLine: state => state.selectLine,
     getLanguage: state => state.language,
     getTargetLang: state => state.targetLang,
+    getTmpMachineTranslate: state => state.tmpMachineTranslate,
   },
   actions: {
     startProofread() {
@@ -27,6 +29,10 @@ export const useGlobalConfig = defineStore({
     },
     setSelectLine(line: number) {
       this.selectLine = line;
+      this.tmpMachineTranslate = '';
+    },
+    setTmpMachineTranslate(text: string) {
+      this.tmpMachineTranslate = text;
     },
     setLanguage(language: Language) {
       this.language = language;
@@ -37,9 +43,11 @@ export const useGlobalConfig = defineStore({
     initialize_state() {
       this.proofread = false;
       this.selectLine = -1;
+      this.tmpMachineTranslate = '';
     },
     initialize_config() {
       this.language = 'TextCn';
+      this.targetLang = 'TextJp';
     },
   },
 });

@@ -43,9 +43,8 @@ const isMainPage = computed(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   background-color: #fff;
-  width: 100vw;
+  width: 100%;
   font-weight: bold;
   font-size: 16px;
   user-select: none;

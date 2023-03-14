@@ -4,8 +4,8 @@
       <index-page id="idx"></index-page>
       <opt-page id="opt"></opt-page>
     </div>
-    <Footer id="footer"></Footer>
   </div>
+  <Footer id="footer"></Footer>
 </template>
 <script setup lang="ts">
 import { useScenarioStore } from '../store/scenarioEditorStore';
@@ -16,9 +16,6 @@ import OptPage from './OperatorPage.vue';
 const mainStore = useScenarioStore();
 </script>
 <style>
-body {
-  overflow: hidden;
-}
 #footer {
   width: 100%;
 }
@@ -40,21 +37,23 @@ body {
 #idx {
   display: flex;
   position: relative;
+  flex: 1;
   margin: 16px;
   border-radius: 1em;
   background-color: #eee;
-  width: 100%;
+  width: 50%;
   max-height: 82.5vh;
 }
 #opt {
   display: flex;
   position: relative;
+  flex: 1;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 16px;
   background-color: #eee;
-  width: 100%;
+  width: 50%;
   height: 82.5vh;
 }
 </style>

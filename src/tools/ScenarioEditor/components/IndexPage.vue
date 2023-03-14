@@ -1,5 +1,5 @@
 <template>
-  <n-scrollbar>
+  <n-scrollbar trigger="hover">
     <index-line
       :line="line"
       :index="index"

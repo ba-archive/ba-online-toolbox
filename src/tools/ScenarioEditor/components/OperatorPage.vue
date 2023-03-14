@@ -10,17 +10,18 @@ import Translation from './Translation.vue';
 </script>
 <style>
 #player {
+  flex: 1;
   margin: 16px;
-  width: 100%;
-  height: 100%;
+  width: 40vw;
 }
 #translation {
+  flex: 1;
   border-radius: 1em;
   background-color: white;
   width: 100%;
   height: 100%;
 }
-#opt > * > * {
+#translation > * {
   margin-bottom: 16px;
 }
 </style>

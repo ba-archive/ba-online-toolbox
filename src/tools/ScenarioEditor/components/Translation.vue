@@ -27,7 +27,7 @@
           config.getSelectLine != -1
             ? mainStore.getScenario.content[config.getSelectLine][
                 config.getLanguage
-              ].replaceAll('#n', '[#n]')
+              ]?.replaceAll('#n', '[#n]')
             : '请选择一行'
         "
         :placeholder="
@@ -53,29 +53,80 @@
           目标语言: {{ langHash[config.getTargetLang] }}
         </n-button>
       </n-dropdown>
+      <n-button
+        :type="
+          config.getSelectLine != -1
+            ? mainStore.getScenario.content[config.getSelectLine].Unsure
+              ? 'error'
+              : 'success'
+            : undefined
+        "
+        @click="
+          () => {
+            if (config.getSelectLine != -1) {
+              mainStore.getScenario.content[config.getSelectLine].Unsure =
+                !mainStore.getScenario.content[config.getSelectLine].Unsure;
+            }
+          }
+        "
+      >
+        {{
+          config.getSelectLine != -1
+            ? mainStore.getScenario.content[config.getSelectLine].Unsure
+              ? '我有疑问'
+              : '没有问题'
+            : '存在疑问'
+        }}
+      </n-button>
+      <n-button @click="translateHandle">翻译目标语言</n-button>
+      <n-button @click="acceptHandle">接受机翻</n-button>
     </div>
-    <div id="ans">
+    <div id="textLine">
       <n-input
-        v-if="true"
+        id="ansInput"
         type="textarea"
         :value="
           config.getSelectLine != -1
-            ? mainStore.getScenario.content[config.getSelectLine][
-                config.getTargetLang
-              ].replaceAll('#n', '[#n]')
+            ? textPrefab(
+                mainStore.getScenario.content[config.getSelectLine][
+                  config.getTargetLang
+                ]
+              )
             : ''
         "
         @input="inputHandle"
         style="width: 55%; margin-left: 2.5%; height: 120px"
       ></n-input>
+      <n-input
+        type="textarea"
+        placeholder="机翻结果"
+        :value="config.tmpMachineTranslate"
+        style="width: 30%; height: 120px; margin: 0px 16px 0px 16px"
+      >
+      </n-input>
+    </div>
+    <div id="comment">
+      <n-input
+        :value="
+          config.getSelectLine != -1
+            ? mainStore.getScenario.content[config.getSelectLine].comment || ''
+            : ''
+        "
+        :placeholder="config.getSelectLine != -1 ? '请输入备注' : ''"
+        @input="commentHandle"
+        style="width: 95%; margin-left: 2.5%"
+      >
+      </n-input>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { NButton, NDropdown, NInput } from 'naive-ui';
+import { NButton, NCheckbox, NDropdown, NInput, NSpace } from 'naive-ui';
+import { translate } from '../../public/getTranslation';
 import { useGlobalConfig } from '../store/configStore';
 import { useScenarioStore } from '../store/scenarioEditorStore';
 import { ContentLine, Language } from '../types/content';
+import { te } from 'date-fns/locale';
 
 const config = useGlobalConfig();
 const mainStore = useScenarioStore();
@@ -85,8 +136,17 @@ const langHash = {
   TextEn: '英语',
   TextKr: '韩语',
   TextTh: '泰文',
-  TextCn: '简体中文',
-  TextTw: '繁体中文',
+  TextCn: '简中',
+  TextTw: '繁中',
+};
+
+const translateHash = {
+  TextJp: 'ja',
+  TextEn: 'en',
+  TextKr: 'ko',
+  TextTh: 'th',
+  TextCn: 'zh-CHS',
+  TextTw: 'zh-CHT',
 };
 
 const langSelect = [
@@ -104,21 +164,75 @@ const inputHandle = (event: string) => {
     mainStore.setContentLine(line as ContentLine, config.getSelectLine);
   }
 };
-const log = (data: any) => console.log(data);
+
+const translateHandle = () => {
+  if (config.getSelectLine != -1) {
+    const text = mainStore.getScenario.content[config.getSelectLine][
+      config.getLanguage
+    ]
+      ?.replaceAll('#n', '[#n]')
+      ?.replaceAll(/\[.*?\]/g, '');
+    translate(
+      text,
+      'auto' || translateHash[config.getLanguage],
+      translateHash[config.getTargetLang]
+    )
+      .then(res => {
+        config.setTmpMachineTranslate(res.translation[0]);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+};
+
+const acceptHandle = () => {
+  if (config.getSelectLine != -1) {
+    const line = mainStore.getScenario.content[config.getSelectLine];
+    if (line[config.getLanguage].split(/(\[.*?\])/g).length > 1) {
+      alert('文本中有特殊标记, 请注意添加~');
+    }
+    line[config.getTargetLang] = config.tmpMachineTranslate;
+    mainStore.setContentLine(line as ContentLine, config.getSelectLine);
+  }
+};
+
+const commentHandle = (event: string) => {
+  if (config.getSelectLine != -1) {
+    const line = mainStore.getScenario.content[config.getSelectLine];
+    line.comment = event;
+    mainStore.setContentLine(line as ContentLine, config.getSelectLine);
+  }
+};
+
+const textPrefab = (text: string) => {
+  return text ? text.replaceAll('#n', '[#n]') : '';
+};
 </script>
 <style>
 .selectedLanguage {
   background-color: var(--color-arona-blue);
   color: white;
 }
-#reference > * {
+#reference > *,
+#trans > * {
   margin: 8px;
   width: auto;
-  min-width: 80px;
+}
+#trans {
+  margin: 16px;
+}
+#trans > * {
+  min-width: 100px;
 }
 #reference {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+}
+#trans,
+#textLine {
+  display: flex;
+  justify-content: space-between;
 }
 </style>
