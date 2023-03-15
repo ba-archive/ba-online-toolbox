@@ -27,6 +27,9 @@ export const useScenarioStore = defineStore({
       this.scenario = scenario;
       this.loadFile();
     },
+    setTranslator(translator: string) {
+      this.scenario.translator = translator;
+    },
     setContentLine(content: ContentLine, line: number) {
       this.scenario.content[line] = content;
     },

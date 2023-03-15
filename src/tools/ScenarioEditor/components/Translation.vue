@@ -134,10 +134,18 @@
       >
       </n-input>
     </div>
+    <n-text id="translator"
+      ><span style="flex: 1">译者: </span
+      ><n-input
+        style="flex: 8"
+        :placeholder="mainStore.getScenario.translator || '请输入姓名'"
+        @input="mainStore.setTranslator($event)"
+      ></n-input
+    ></n-text>
   </div>
 </template>
 <script setup lang="ts">
-import { NButton, NCheckbox, NDropdown, NInput, NSpace } from 'naive-ui';
+import { NButton, NDropdown, NInput, NText } from 'naive-ui';
 import { translate } from '../../public/getTranslation';
 import { useGlobalConfig } from '../store/configStore';
 import { useScenarioStore } from '../store/scenarioEditorStore';
@@ -242,12 +250,19 @@ const textPrefab = (text: string) => {
 }
 #reference {
   display: flex;
+  justify-content: space-around;
   align-items: center;
   margin-bottom: 10px;
 }
 #trans,
 #textLine {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+}
+#translator {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 16px;
 }
 </style>
