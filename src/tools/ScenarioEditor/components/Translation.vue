@@ -4,12 +4,14 @@
       <n-button secondary type="info" style="margin: 16px"
         >参考文本语言</n-button
       >
-      <n-button
-        v-for="lang in Object.keys(langHash)"
-        :focusable="false"
-        @click="config.setLanguage(lang as Language)"
-        :class="config.getLanguage == lang ? 'selectedLanguage' : ''"
-        >{{ langHash[lang as Language] }}</n-button
+      <span>
+        <n-button
+          v-for="lang in Object.keys(langHash)"
+          :focusable="false"
+          @click="config.setLanguage(lang as Language)"
+          :class="config.getLanguage == lang ? 'selectedLanguage' : ''"
+          >{{ langHash[lang as Language] }}</n-button
+        ></span
       >
       <n-button
         :type="config.isProofread ? 'success' : 'error'"
@@ -40,50 +42,60 @@
       ></n-input>
     </div>
     <div id="trans">
-      <n-dropdown
-        trigger="hover"
-        :options="langSelect"
-        @select="
-          {
-            config.setTargetLang($event as Language);
-          }
-        "
-      >
-        <n-button secondary type="info">
-          目标语言: {{ langHash[config.getTargetLang] }}
-        </n-button>
-      </n-dropdown>
-      <n-button
-        :type="
-          config.getSelectLine != -1
-            ? mainStore.getScenario.content[config.getSelectLine].Unsure
-              ? 'error'
-              : 'success'
-            : undefined
-        "
-        @click="
-          () => {
-            if (config.getSelectLine != -1) {
-              mainStore.getScenario.content[config.getSelectLine].Unsure =
-                !mainStore.getScenario.content[config.getSelectLine].Unsure;
+      <span>
+        <n-dropdown
+          trigger="hover"
+          :options="langSelect"
+          @select="
+            {
+              config.setTargetLang($event as Language);
             }
-          }
-        "
+          "
+        >
+          <n-button secondary type="info">
+            目标语言: {{ langHash[config.getTargetLang] }}
+          </n-button>
+        </n-dropdown>
+        <n-button
+          :type="
+            config.getSelectLine != -1
+              ? mainStore.getScenario.content[config.getSelectLine].Unsure
+                ? 'error'
+                : 'success'
+              : undefined
+          "
+          @click="
+            () => {
+              if (config.getSelectLine != -1) {
+                mainStore.getScenario.content[config.getSelectLine].Unsure =
+                  !mainStore.getScenario.content[config.getSelectLine].Unsure;
+              }
+            }
+          "
+        >
+          {{
+            config.getSelectLine != -1
+              ? mainStore.getScenario.content[config.getSelectLine].Unsure
+                ? '我有疑问'
+                : '没有问题'
+              : '存在疑问'
+          }}
+        </n-button>
+        <n-button @click="config.changeLanguage"
+          >显示语言:
+          {{
+            config.isSwitchLanguage == 3
+              ? '全部'
+              : config.isSwitchLanguage == 2
+              ? '参考语言'
+              : '目标语言'
+          }}</n-button
+        ></span
       >
-        {{
-          config.getSelectLine != -1
-            ? mainStore.getScenario.content[config.getSelectLine].Unsure
-              ? '我有疑问'
-              : '没有问题'
-            : '存在疑问'
-        }}
-      </n-button>
-      <n-button @click="translateHandle">翻译目标语言</n-button>
-      <n-button @click="acceptHandle">接受机翻</n-button>
-      <n-button @click="config.changeLanguage"
-        >显示语言:
-        {{ config.isSwitchLanguage ? '参考语言' : '目标语言' }}</n-button
-      >
+      <span>
+        <n-button @click="translateHandle">翻译参考文本</n-button>
+        <n-button @click="acceptHandle">接受机翻</n-button>
+      </span>
     </div>
     <div id="textLine">
       <n-input
@@ -130,7 +142,6 @@ import { translate } from '../../public/getTranslation';
 import { useGlobalConfig } from '../store/configStore';
 import { useScenarioStore } from '../store/scenarioEditorStore';
 import { ContentLine, Language } from '../types/content';
-import { te } from 'date-fns/locale';
 
 const config = useGlobalConfig();
 const mainStore = useScenarioStore();

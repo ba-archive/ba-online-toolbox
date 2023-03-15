@@ -1,18 +1,19 @@
 <template>
   <div id="opt">
-    <Player></Player>
-    <Translation></Translation>
+    <player-part></player-part>
+    <translation-part></translation-part>
   </div>
 </template>
 <script setup lang="ts">
-import Player from './Player.vue';
-import Translation from './Translation.vue';
+import PlayerPart from './Player.vue';
+import TranslationPart from './Translation.vue';
 </script>
 <style>
 #player {
   flex: 1;
   margin: 16px;
-  width: 40vw;
+  width: 100%;
+  height: 100%;
 }
 #translation {
   flex: 1;

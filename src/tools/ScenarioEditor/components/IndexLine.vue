@@ -4,10 +4,16 @@
     style="margin: 16px; width: auto"
     :style="`background-color: ${colorHandle()}`"
   >
-    <n-image src="../src/upload.svg"></n-image>
-    <n-text>{{
-      line[config.isSwitchLanguage ? config.getLanguage : config.targetLang]
-    }}</n-text>
+    <n-image v-if="false"></n-image>
+    <n-text>
+      <span v-if="config.isSwitchLanguage & 0b10">{{
+        props.line[config.getLanguage] || '暂无参考文本'
+      }}</span>
+      <br v-if="config.isSwitchLanguage == 3" />
+      <span v-if="config.isSwitchLanguage & 0b01">{{
+        props.line[config.getTargetLang] || '暂无翻译'
+      }}</span>
+    </n-text>
   </n-card>
 </template>
 <script setup lang="ts">
@@ -26,16 +32,38 @@ const props = defineProps<{
 const colorHandle = (): string => {
   if (props.line.Unsure) {
     if (props.index == config.selectLine) {
-      return '#f0a020';
+      return 'orange';
     } else {
-      return '#d03050'; // 红色有点刺眼
+      return 'yellow'; // 红色有点刺眼
     }
   } else {
     if (props.index == config.selectLine) {
-      return 'grey';
+      if (props.line[config.targetLang] == '') {
+        return 'grey';
+      } else {
+        return 'green';
+      }
     } else {
-      return 'white';
+      if (props.line[config.targetLang] == '') {
+        return 'white';
+      } else {
+        return 'lime';
+      }
     }
+  }
+};
+
+const textHandle = () => {
+  if (config.isSwitchLanguage == 3) {
+    return (
+      `<span>${props.line[config.getLanguage]}</span>\n<span>${
+        props.line[config.getTargetLang]
+      }</span>` || '暂无翻译'
+    );
+  } else if (config.isSwitchLanguage == 2) {
+    return props.line[config.getLanguage] || '暂无翻译';
+  } else if (config.isSwitchLanguage == 1) {
+    return props.line[config.getTargetLang] || '暂无翻译';
   }
 };
 </script>

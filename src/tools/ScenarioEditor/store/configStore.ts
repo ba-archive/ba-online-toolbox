@@ -9,7 +9,7 @@ export const useGlobalConfig = defineStore({
     language: 'TextJp' as Language,
     targetLang: 'TextCn' as Language,
     tmpMachineTranslate: '',
-    switchLanguage: false,
+    switchLanguage: 0b01,
   }),
   getters: {
     isProofread: state => state.proofread,
@@ -27,7 +27,11 @@ export const useGlobalConfig = defineStore({
       this.proofread = false;
     },
     changeLanguage() {
-      this.switchLanguage = !this.switchLanguage;
+      if (this.switchLanguage == 0b11) {
+        this.switchLanguage = 0b01;
+      } else {
+        this.switchLanguage++;
+      }
     },
     setProofread(proofread: boolean) {
       this.proofread = proofread;

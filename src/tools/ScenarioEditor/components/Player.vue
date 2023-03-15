@@ -1,5 +1,6 @@
 <template>
   <div id="player">
+    <!--
     <ba-story-player
       :story="mainStore.getScenario.content"
       :language="'Cn'"
@@ -11,6 +12,7 @@
       :ref="undefined"
     >
     </ba-story-player>
+    -->
   </div>
 </template>
 <script setup lang="ts">
@@ -22,3 +24,12 @@ import { useScenarioStore } from '../store/scenarioEditorStore';
 const mainStore = useScenarioStore();
 const config = useGlobalConfig();
 </script>
+<style>
+#player {
+  display: flex;
+  border-radius: 1em;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+}
+</style>
